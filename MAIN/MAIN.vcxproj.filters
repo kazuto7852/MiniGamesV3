@@ -8,9 +8,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAIN.h" />
+    <ClInclude Include="LEVEL_FACTORY.h" />
+    <ClInclude Include="TRANSITION_EFFECT.h" />
+    <ClInclude Include="LEVEL.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAIN.cpp" />
+    <ClCompile Include="TRANSITION_EFFECT.cpp" />
+    <ClCompile Include="LEVEL_FACTORY.cpp" />
+    <ClCompile Include="LEVEL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
