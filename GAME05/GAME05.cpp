@@ -1,9 +1,9 @@
 #include "../../libOne/inc/libOne.h"
 #include "../MAIN/LEVEL_FACTORY.h"
 #include "../MAIN/MAIN.h"
-#include "GAME02.h"
+#include "GAME05.h"
 
-void GAME02::create()
+void GAME05::create()
 {
 	//ここでは主に画像と音データを読み込む
 
@@ -14,12 +14,12 @@ void GAME02::create()
 	Radius = 200;
 }
 
-void GAME02::destroy()
+void GAME05::destroy()
 {
 	//create()でnewした場合はここでdeleteすること
 }
 
-void GAME02::proc()
+void GAME05::proc()
 {
 	//ここはメインループから呼び出されている!!!!!
 	
@@ -34,7 +34,7 @@ void GAME02::proc()
 	fill(0);
 	textSize(100);
 	text("Enterでメニューに戻る", 0, height);
-	print(2);
+	print(5);
 	//メニューに戻る------------------------------------------
 	if (isTrigger(KEY_ENTER)) {
 		main()->backToMenu();

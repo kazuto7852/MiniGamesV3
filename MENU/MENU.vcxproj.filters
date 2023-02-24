@@ -6,4 +6,7 @@
   <ItemGroup>
     <ClCompile Include="MENU.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\MAIN\assets\menu\indices.bin" />
+  </ItemGroup>
 </Project>

@@ -159,6 +159,12 @@
     <ProjectReference Include="..\GAME03\GAME03.vcxproj">
       <Project>{016ab3cd-8263-4487-9ef2-d3cab7f2bc27}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\GAME04\GAME04.vcxproj">
+      <Project>{c58f7c37-698f-4096-b701-e46680e23d09}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME05\GAME05.vcxproj">
+      <Project>{afcdb6b3-03e5-4ab1-934a-cf695924fe99}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\MENU\MENU.vcxproj">
       <Project>{4927b0ca-73e2-4f6f-a0fe-cd60cffcf971}</Project>
     </ProjectReference>

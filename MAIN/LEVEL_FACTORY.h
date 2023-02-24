@@ -7,6 +7,8 @@ public:
 		GAME01_ID,
 		GAME02_ID,
 		GAME03_ID,
+		GAME04_ID,
+		GAME05_ID,
 		MENU_ID=100,
 	};
 	LEVEL_FACTORY(class MAIN* main);

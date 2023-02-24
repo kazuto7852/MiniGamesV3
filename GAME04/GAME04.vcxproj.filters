@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="GAME02.h" />
+    <ClCompile Include="GAME04.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GAME02.cpp" />
+    <ClInclude Include="GAME04.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\MAIN\assets\game02\title.txt" />
+    <Text Include="..\MAIN\assets\game04\title.txt" />
   </ItemGroup>
 </Project>

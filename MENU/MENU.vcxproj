@@ -138,6 +138,9 @@
   <ItemGroup>
     <ClCompile Include="MENU.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\MAIN\assets\menu\indices.bin" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
