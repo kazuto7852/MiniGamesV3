@@ -6,19 +6,19 @@
 MAIN::MAIN()
 {
 	window(1920, 1080, full);
-	//スタート時のレベルをつくる
+	//レベルファクトリ生成
 	LevelFactory = new LEVEL_FACTORY(this);
+	//スタート時のレベルをつくる
 	CurrentLevelId = NextLevelId = LEVEL_FACTORY::MENU_ID;
 	Level = LevelFactory->create(CurrentLevelId);
 	Level->create();
 	//切り替え効果オブジェクト
 	Transition = new TRANSITION_EFFECT;
-
-	initDeltaTime();
 }
 
 MAIN::~MAIN()
 {
+	delete LevelFactory;
 	Level->destroy();
 	delete Level;
 	delete Transition;
@@ -26,6 +26,7 @@ MAIN::~MAIN()
 
 void MAIN::run()
 {
+	initDeltaTime();
 	//メインループ
 	while (notQuit) {
 
@@ -41,11 +42,14 @@ void MAIN::run()
 		Transition->outStart();
 		//画面切り替え効果終了後、Level切り替え
 		if (Transition->outEndFlag()) {
+			//現在のレベルを解放
 			Level->destroy();
 			delete Level;
+			//次のレベルを生成
 			CurrentLevelId = NextLevelId;
 			Level = LevelFactory->create(CurrentLevelId);
 			Level->create();
+			//切り替え効果スタート
 			Transition->inStart();
 		}
 	}

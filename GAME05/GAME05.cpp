@@ -3,7 +3,7 @@
 #include "../MAIN/MAIN.h"
 #include "GAME05.h"
 
-void GAME05::create()
+int GAME05::create()
 {
 	//‚±‚±‚Å‚Íå‚É‰æ‘œ‚Æ‰¹ƒf[ƒ^‚ğ“Ç‚İ‚Ş
 
@@ -12,6 +12,8 @@ void GAME05::create()
 	Px = width / 2;
 	Py = height / 2;
 	Radius = 200;
+
+	return 0;
 }
 
 void GAME05::destroy()

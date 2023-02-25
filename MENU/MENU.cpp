@@ -6,7 +6,7 @@
 #include "../MAIN/MAIN.h"
 #include "MENU.h"
 
-void MENU::create()
+int MENU::create()
 {
 	Rows = 2;//行
 	Cols = 3;//列
@@ -48,6 +48,8 @@ void MENU::create()
 	}
 
 	IndexMouseHolding = -1;
+
+	return 0;
 }
 
 void MENU::destroy()
@@ -63,10 +65,25 @@ void MENU::destroy()
 void MENU::proc()
 {
 	//更新--------------------------------------------------
-	//マウスが乗っているタイルのselectIndexを決定
-		//マウスがあるタイルのインデックス
-	int indexMouseOver = -1;
-	//マウスがメニュー（全タイル）の範囲にある
+	ChangePosition();
+	//描画--------------------------------------------------
+	Draw();
+	//右クリックで選択したレベルに切り替え-----------------------
+	if (isTrigger(MOUSE_LBUTTON)) {
+		if (IndexMouseOver >= 0) {
+			int index = Indices[IndexMouseOver];
+			main()->setNextLevelId((LEVEL_FACTORY::LEVEL_ID)index);
+		}
+	}
+}
+
+void MENU::ChangePosition()
+{
+	//左クリックによるドラッグアンドドロップでレベルの順序を並び変える
+
+	//マウスが乗っているタイルのインデックス。とりあえず無効(-1)
+	IndexMouseOver = -1;
+	//マウスがメニュー（全タイル）の範囲にあるなら
 	if (mouseX > OfstX && mouseX < OfstX + TileW * Cols &&
 		mouseY > OfstY && mouseY < OfstY + TileH * Rows)
 	{
@@ -74,57 +91,59 @@ void MENU::proc()
 		int mouseCol = int((mouseX - OfstX) / TileW);
 		int mouseRow = int((mouseY - OfstY) / TileH);
 		//１次元配列Indices[]のインデックスに変換
-		indexMouseOver = Cols * mouseRow + mouseCol;
-		//クリックされた時のインデックスを取っておく
+		IndexMouseOver = Cols * mouseRow + mouseCol;
+		//「掴む！」クリックされた時のインデックスを取っておく
 		if (isTrigger(MOUSE_RBUTTON))
 		{
-			IndexMouseHolding = indexMouseOver;
+			IndexMouseHolding = IndexMouseOver;
 		}
-		//マウスボタンを離した位置にとっておいたインデックスを挿入
+		//「離す！」マウスボタンを離した位置にとっておいたインデックスを挿入
 		if (IndexMouseHolding != -1 &&
 			isRelease(MOUSE_RBUTTON))
 		{
 			//クリックされたタイルのインデックスを取っておく
 			int workIndex = Indices[IndexMouseHolding];
 			//後ろのインデックスを前に持っていった時、後ろにずらす
-			if (indexMouseOver < IndexMouseHolding)
+			if (IndexMouseOver < IndexMouseHolding)
 			{
-				for (int i = IndexMouseHolding; i > indexMouseOver; i--)
+				for (int i = IndexMouseHolding; i > IndexMouseOver; i--)
 				{
 					Indices[i] = Indices[i - 1];
 				}
 			}
 			//前のインデックスを後ろに持っていった時、前にずらす
-			else if (indexMouseOver > IndexMouseHolding)
+			else if (IndexMouseOver > IndexMouseHolding)
 			{
-				for (int i = IndexMouseHolding; i < indexMouseOver; i++)
+				for (int i = IndexMouseHolding; i < IndexMouseOver; i++)
 				{
 					Indices[i] = Indices[i + 1];
 				}
 			}
 			//上でずらすことにより挿入場所ができたので入れる
-			Indices[indexMouseOver] = workIndex;
+			Indices[IndexMouseOver] = workIndex;
 			//無効にする
 			IndexMouseHolding = -1;
 		}
 	}
 	else {
-		//無効にする
+		//全タイルの外に出たので、掴んでいるインデックスを無効にする
 		IndexMouseHolding = -1;
 	}
-	//描画--------------------------------------------------
+}
+void MENU::Draw()
+{
 	//カラーモード、枠の色、枠の幅
 	colorMode(HSV);
 	angleMode(DEGREES);
 	stroke(0, 0, 0);
 	strokeWeight(5);
-	clear(0,0,0);
-	//Menu文字
+	clear(0, 0, 0);
+	//Menu文字描画
 	textMode(BOTTOM);
 	textSize(SizeText);
 	fill(0, 0, 255);
 	text("Menu", OfstX, OfstY);
-	//タイル
+	//タイル描画
 	for (int r = 0; r < Rows; r++)
 	{
 		for (int c = 0; c < Cols; c++)
@@ -135,7 +154,7 @@ void MENU::proc()
 			float saturation = 255;
 			float value = 160;
 			//マウスが上にあるタイルは明るく
-			if (index == indexMouseOver) {
+			if (index == IndexMouseOver) {
 				saturation = 128;
 				value = 255;
 			}
@@ -148,40 +167,13 @@ void MENU::proc()
 			textSize(SizeText);
 			fill(0);
 			textMode(BOTTOM);
-			text(Titles[Indices[index]].c_str(), px+10, py +10+ SizeText);
+			text(Titles[Indices[index]].c_str(), px + 10, py + 10 + SizeText);
 		}
 	}
+	//移動中のタイトル文字を描画
 	if (IndexMouseHolding >= 0) {
 		fill(128);
 		textMode(BCENTER);
 		text(Titles[Indices[IndexMouseHolding]].c_str(), mouseX, mouseY);
 	}
-	//for (int r = 0; r < Rows; r++) {
-	//	for (int c = 0; c < Cols; c++) {
-	//		//タイルの色を決定
-	//		int index = Cols * r + c;
-	//		float hue = DivHue * index;
-	//		float saturation = 200;
-	//		//マウスが上にあるタイルは明るく
-	//		if (index == selectIndex) {
-	//			saturation = 0;
-	//		}
-	//		fill(hue, saturation, 200);
-	//		//タイルの表示位置を決めて描画
-	//		float px = TileW * c + OfstX;
-	//		float py = TileH * r + OfstY;
-	//		rect(px, py, TileW, TileH);
-	//		//インデックス表示
-	//		fill(0);
-	//		text(index, px + 10, py + size + 10);
-	//	}
-	//}
-
-	if (Indices[indexMouseOver] >= 0 &&
-		isTrigger(MOUSE_LBUTTON)) {
-		main()->setNextLevelId(
-			(LEVEL_FACTORY::LEVEL_ID)Indices[indexMouseOver]);
-	}
 }
-
-

@@ -6,7 +6,7 @@ class GAME04 :
 public:
     GAME04(class MAIN* main) :LEVEL(main) {};
     ~GAME04() {};
-    void create();
+    int create();
     void proc();
     void destroy();
 private:

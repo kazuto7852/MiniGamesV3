@@ -7,16 +7,18 @@ class MENU :
 public:
     MENU(class MAIN* main) :LEVEL(main) {};
     ~MENU() {};
-    void create();
+    int create();
     void proc();
     void destroy();
 private:
-    //インデックスをマウスで並び変えるための変数
+    //レベルインデックスの位置をマウスで変える
+    void ChangePosition();
     char* Indices;
     int NumIndices;
     int IndexMouseHolding;
+    int IndexMouseOver;
     std::string* Titles;
-
+    void Draw();
     int Rows, Cols;
     float TileH, TileW;
     float OfstX, OfstY;

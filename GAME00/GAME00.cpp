@@ -7,11 +7,13 @@
 #include "../MAIN/MAIN.h"
 #include "GAME00.h"
 
-void GAME00::create()
+int GAME00::create()
 {
 	State = TITLE;
 	ExplosionImg = loadImage("..\\main\\assets\\game00\\explosion.png");
 	ExplosionSnd = loadSound("..\\main\\assets\\game00\\bomb.wav");
+
+	return 0;
 }
 
 void GAME00::destroy()

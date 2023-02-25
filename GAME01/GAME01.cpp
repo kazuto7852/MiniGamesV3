@@ -3,7 +3,7 @@
 #include "../MAIN/MAIN.h"
 #include "GAME01.h"
 
-void GAME01::create()
+int GAME01::create()
 {
 	//ここでは主に画像と音データを読み込む
 
@@ -12,6 +12,11 @@ void GAME01::create()
 	Px = width / 2;
 	Py = height / 2;
 	Radius = 200;
+
+	Hue = 0;
+	SpeedChangeHue = 60;
+
+	return 0;
 }
 
 void GAME01::destroy()
@@ -22,9 +27,12 @@ void GAME01::destroy()
 void GAME01::proc()
 {
 	//ここはメインループから呼び出されている!!!!!
-	Hue += 1;
+
+	//更新--------------------------------------------------
+	Hue += SpeedChangeHue * delta;
 	//描画--------------------------------------------------
 	colorMode(HSV);
+	angleMode(DEGREES);//for HUE
 	clear(255, 0, 255);
 	//円
 	strokeWeight(50);
@@ -35,7 +43,7 @@ void GAME01::proc()
 	fill(0);
 	textSize(100);
 	text("Enterでメニューに戻る", 0, height);
-	print(1);
+	print(delta);
 	//メニューに戻る------------------------------------------
 	if (isTrigger(KEY_ENTER)) {
 		main()->backToMenu();
