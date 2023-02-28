@@ -12,16 +12,16 @@ public:
     void proc();
     void destroy();
 private:
-    //ファイル読み込み
+    //ファイル読み込み create()から呼び出される
     void LoadGameIndices();
     void LoadTitleNames();
-    //ゲームインデックスの位置をマウスで変える
+    //ゲームインデックスの位置をマウスで変える proc()から呼び出される
     void ChangeGameIndices();
     char* GameIndices=0; 
     int NumGameIndices=0;
     int TileIndexMouseHolding=0;
     int TileIndexMouseOver=0;
-    //メニュー描画
+    //メニュー描画 procから呼び出される
     void Draw();
     int Rows=0, Cols=0;
     float TileH=0, TileW=0;
