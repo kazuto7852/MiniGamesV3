@@ -11,8 +11,8 @@ int MENU::create()
 	//Še•Ï”‰Šú‰»
 	Rows = 2;//s
 	Cols = 3;//—ñ
-	TileW = 160*3;
-	TileH = 90*3;
+	TileW = 160 * 3;
+	TileH = 90 * 3;
 	OfstX = (width - TileW * Cols) / 2;
 	OfstY = (height - TileH * Rows) / 2;
 	DivHue = 360.0f / (Cols * Rows);
