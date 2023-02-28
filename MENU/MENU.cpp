@@ -8,6 +8,7 @@
 
 int MENU::create()
 {
+	//各変数初期化
 	Rows = 2;//行
 	Cols = 3;//列
 	TileW = 160*3;
@@ -16,51 +17,61 @@ int MENU::create()
 	OfstY = (height - TileH * Rows) / 2;
 	DivHue = 360.0f / (Cols * Rows);
 	SizeText = 40;
-
-	//
-	NumIndices = Rows * Cols;
-	Indices = new char[NumIndices];
-	const char* fileName = "../MAIN/assets/menu/indices.bin";
-	std::ifstream ifs(fileName, std::ios::binary);
-	if (ifs) {
-		ifs.read(Indices, NumIndices);
-		for (int i = 0; i < NumIndices; i++) {
-			if (Indices[i] == -51) {
-				Indices[i] = i;
-			}
-		}
-	}
-	else {
-		for (int i = 0; i < NumIndices; i++) {
-			Indices[i] = i;
-		}
-	}
-	ifs.close();
-
-	//タイルに表示するタイトルテキスト
-	Titles = new std::string[NumIndices];
-	char buf[128];
-	for (int i = 0; i < NumIndices; i++) {
-		sprintf_s(buf,"../MAIN/assets/game%02d/title.txt",i);
-		ifs.open(buf);
-		std::getline(ifs,Titles[i]);
-		ifs.close();
-	}
-
 	IndexMouseHolding = -1;
+
+	LoadIndices();
+	LoadTitleNames();
 
 	return 0;
 }
 
+void MENU::LoadIndices()
+{
+	//メニューに並べるレベルのインデックス番号の配列確保
+	NumIndices = Rows * Cols;
+	Indices = new char[NumIndices] {};
+	//メニューに並べるレベルのインデックス番号ファイルをIndices配列に読み込む
+	const char* fileName = "../MAIN/assets/menu/indices.bin";
+	std::ifstream ifs(fileName, std::ios::binary);
+	if (ifs) {
+		//一気に読み込む。もろもろのエラー処理はしていない。
+		ifs.read(Indices, NumIndices);
+		ifs.close();
+	}
+	else {
+		//ファイルが無ければ連番を設定
+		for (int i = 0; i < NumIndices; i++) {
+			Indices[i] = i;
+		}
+	}
+}
+
+void MENU::LoadTitleNames()
+{
+	//タイルに表示するレベルタイトルのテキストを読み込む配列確保
+	Titles = new std::string[NumIndices];
+	//タイルに表示するレベルタイトルのテキストをファイルから読み込む
+	std::ifstream ifs;
+	char buf[128];
+	for (int i = 0; i < NumIndices; i++) {
+		sprintf_s(buf, "../MAIN/assets/game%02d/title.txt", i);
+		ifs.open(buf);
+		std::getline(ifs, Titles[i]);
+		ifs.close();
+	}
+}
+
 void MENU::destroy()
 {
+	//現在のインデックスの並びをファイルに書き込み
 	const char* fileName = "../MAIN/assets/menu/indices.bin";
 	std::ofstream ofs(fileName, std::ios::binary);
 	ofs.write(Indices, NumIndices);
-	
+
 	delete[] Titles;
 	delete[] Indices;
 }
+
 
 void MENU::proc()
 {
@@ -130,6 +141,7 @@ void MENU::ChangePosition()
 		IndexMouseHolding = -1;
 	}
 }
+
 void MENU::Draw()
 {
 	//カラーモード、枠の色、枠の幅

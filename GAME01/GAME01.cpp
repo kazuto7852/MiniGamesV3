@@ -43,7 +43,7 @@ void GAME01::proc()
 	fill(0);
 	textSize(100);
 	text("Enterでメニューに戻る", 0, height);
-	print(delta);
+	print(1);
 	//メニューに戻る------------------------------------------
 	if (isTrigger(KEY_ENTER)) {
 		main()->backToMenu();
