@@ -3,7 +3,6 @@
 #include "../../libOne/inc/window.h"
 #include "../../libOne/inc/input.h"
 #include "../../libOne/inc/rand.h"
-#include "../MAIN/LEVEL_FACTORY.h"
 #include "../MAIN/MAIN.h"
 #include "GAME00.h"
 
@@ -44,6 +43,7 @@ void GAME00::Title()
 		State = PLAY;
 		return;
 	}
+	//ƒƒjƒ…[‚É–ß‚é-----------------------------------------
 	if (isTrigger(KEY_ENTER)) {
 		main()->backToMenu();
 	}

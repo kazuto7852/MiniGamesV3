@@ -1,8 +1,8 @@
 #pragma once
-class LEVEL_FACTORY
+class GAME_FACTORY
 {
 public:
-	enum LEVEL_ID {
+	enum GAME_ID {
 		GAME00_ID,
 		GAME01_ID,
 		GAME02_ID,
@@ -11,9 +11,9 @@ public:
 		GAME05_ID,
 		MENU_ID=100,
 	};
-	LEVEL_FACTORY(class MAIN* main);
-	~LEVEL_FACTORY();
-	class LEVEL* create(LEVEL_ID id);
+	GAME_FACTORY(class MAIN* main);
+	~GAME_FACTORY();
+	class GAME_BASE* create(GAME_ID id);
 private:
 	class MAIN* Main;
 };

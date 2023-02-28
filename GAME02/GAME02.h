@@ -1,10 +1,10 @@
 #pragma once
-#include "../MAIN/LEVEL.h"
+#include "../MAIN/GAME_BASE.h"
 class GAME02 :
-    public LEVEL
+    public GAME_BASE
 {
 public:
-    GAME02(class MAIN* main) :LEVEL(main) {};
+    GAME02(class MAIN* main) :GAME_BASE(main) {};
     ~GAME02() {};
     int create();
     void proc();

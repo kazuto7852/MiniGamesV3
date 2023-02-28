@@ -1,10 +1,10 @@
 #pragma once
 #include <vector>
-class LEVEL
+class GAME_BASE
 {
 public:
-	LEVEL(class MAIN* main);
-	virtual ~LEVEL();
+	GAME_BASE(class MAIN* main);
+	virtual ~GAME_BASE();
 	virtual int create() = 0;
 	virtual void proc() = 0;
 	virtual void destroy() = 0;

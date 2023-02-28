@@ -129,14 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="LEVEL.h" />
-    <ClInclude Include="LEVEL_FACTORY.h" />
+    <ClInclude Include="GAME_BASE.h" />
+    <ClInclude Include="GAME_FACTORY.h" />
     <ClInclude Include="MAIN.h" />
     <ClInclude Include="TRANSITION_EFFECT.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LEVEL.cpp" />
-    <ClCompile Include="LEVEL_FACTORY.cpp" />
+    <ClCompile Include="GAME_BASE.cpp" />
+    <ClCompile Include="GAME_FACTORY.cpp" />
     <ClCompile Include="MAIN.cpp" />
     <ClCompile Include="TRANSITION_EFFECT.cpp" />
   </ItemGroup>

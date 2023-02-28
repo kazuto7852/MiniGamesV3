@@ -6,13 +6,13 @@
 #include "../GAME05/GAME05.h"
 #include "../MENU/MENU.h"
 #include "MAIN.h"
-#include "LEVEL_FACTORY.h"
+#include "GAME_FACTORY.h"
 
-LEVEL_FACTORY::LEVEL_FACTORY(MAIN* main):Main(main){}
+GAME_FACTORY::GAME_FACTORY(MAIN* main):Main(main){}
 
-LEVEL_FACTORY::~LEVEL_FACTORY(){Main = nullptr;}
+GAME_FACTORY::~GAME_FACTORY(){Main = nullptr;}
 
-LEVEL* LEVEL_FACTORY::create(LEVEL_ID id)
+GAME_BASE* GAME_FACTORY::create(GAME_ID id)
 {
 	if (id == GAME00_ID)return new GAME00(Main);
 	if (id == GAME01_ID)return new GAME01(Main);

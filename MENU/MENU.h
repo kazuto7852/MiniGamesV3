@@ -1,33 +1,33 @@
 #pragma once
 #include <string>
 #include <memory>
-#include "../MAIN/LEVEL.h"
+#include "../MAIN/GAME_BASE.h"
 class MENU :
-    public LEVEL
+    public GAME_BASE
 {
 public:
-    MENU(class MAIN* main) :LEVEL(main) {
-    };
+    MENU(class MAIN* main) :GAME_BASE(main) {};
     ~MENU() {};
     int create();
     void proc();
     void destroy();
 private:
-    void LoadIndices();
+    //ファイル読み込み
+    void LoadGameIndices();
     void LoadTitleNames();
-    //レベルインデックスの位置をマウスで変える
-    void ChangeLevelIndices();
-    char* LevelIndices; 
-    int NumLevelIndices;
-    int TileIndexMouseHolding;
-    int TileIndexMouseOver;
+    //ゲームインデックスの位置をマウスで変える
+    void ChangeGameIndices();
+    char* GameIndices=0; 
+    int NumGameIndices=0;
+    int TileIndexMouseHolding=0;
+    int TileIndexMouseOver=0;
     //メニュー描画
     void Draw();
-    int Rows, Cols;
-    float TileH, TileW;
-    float OfstX, OfstY;
-    float DivHue;
-    float SizeText;
-    std::string* Titles;
+    int Rows=0, Cols=0;
+    float TileH=0, TileW=0;
+    float OfstX=0, OfstY=0;
+    float DivHue=0;
+    float SizeText=0;
+    std::string* Titles=0;
 };
 

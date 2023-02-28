@@ -1,26 +1,26 @@
 #pragma once
-#include "LEVEL_FACTORY.h"
+#include "GAME_FACTORY.h"
 class MAIN
 {
 public:
 	MAIN();
 	~MAIN();
 	void run();
-	void setNextLevelId(LEVEL_FACTORY::LEVEL_ID nextLevelId) { 
-		NextLevelId = nextLevelId; 
+	void setNextGameId(GAME_FACTORY::GAME_ID nextGameId) { 
+		NextGameId = nextGameId; 
 	}
 	void backToMenu() {
-		NextLevelId = LEVEL_FACTORY::MENU_ID;
+		NextGameId = GAME_FACTORY::MENU_ID;
 	}
 private:
-	//レベルのシンプルファクトリ
-	class LEVEL_FACTORY* LevelFactory = nullptr;
-	//現在実行中のレベルID
-	LEVEL_FACTORY::LEVEL_ID CurrentLevelId;
-	//次に実行予定のレベルID
-	LEVEL_FACTORY::LEVEL_ID NextLevelId;
-	//実行中のレベル
-	class LEVEL* Level = nullptr;
-	//切り替え効果
+	//ゲームのシンプルファクトリオブジェクト
+	class GAME_FACTORY* GameFactory = nullptr;
+	//現在実行中のゲームID
+	GAME_FACTORY::GAME_ID CurrentGameId;
+	//次に実行予定のゲームID
+	GAME_FACTORY::GAME_ID NextGameId;
+	//実行中のゲームオブジェクト
+	class GAME_BASE* GameBase = nullptr;
+	//切り替え効果オブジェクト
 	class TRANSITION_EFFECT* Transition = nullptr;
 };

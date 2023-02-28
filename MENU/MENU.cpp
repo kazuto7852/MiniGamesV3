@@ -2,7 +2,7 @@
 #include "../../libOne/inc/graphic.h"
 #include "../../libOne/inc/input.h"
 #include "../../libOne/inc/mathUtil.h"
-#include "../MAIN/LEVEL_FACTORY.h"
+#include "../MAIN/GAME_FACTORY.h"
 #include "../MAIN/MAIN.h"
 #include "MENU.h"
 
@@ -20,46 +20,46 @@ int MENU::create()
 	OfstY = (height - TileH * Rows) / 2;
 	//タイルの色を決定するための分割された角度Hue
 	DivHue = 360.0f / (Cols * Rows);
-	//タイルの上に表示する各レベルのタイトルの大きさ
+	//タイルの上に表示する各ゲームのタイトルの大きさ
 	SizeText = 40;
 	//マウスで右クリックされたタイルのインデックス。とりあえず-1で無効にしておく。
 	TileIndexMouseHolding = -1;
 
-	LoadIndices();
+	LoadGameIndices();
 	LoadTitleNames();
 
 	return 0;
 }
 
-void MENU::LoadIndices()
+void MENU::LoadGameIndices()
 {
-	//メニューに並べるレベルのインデックス番号の配列確保
-	NumLevelIndices = Rows * Cols;
-	LevelIndices = new char[NumLevelIndices] {};
-	//メニューに並べるレベルのインデックス番号ファイルをLevelIndices配列に読み込む
+	//メニューに並べるゲームのインデックス番号の配列確保
+	NumGameIndices = Rows * Cols;
+	GameIndices = new char[NumGameIndices] {};
+	//メニューに並べるゲームのインデックス番号ファイルをGameIndices配列に読み込む
 	const char* fileName = "../MAIN/assets/menu/indices.bin";
 	std::ifstream ifs(fileName, std::ios::binary);
 	if (ifs) {
 		//一気に読み込む。
-		ifs.read(LevelIndices, NumLevelIndices);
+		ifs.read(GameIndices, NumGameIndices);
 		ifs.close();
 	}
 	else {
 		//ファイルが無ければ連番を設定
-		for (int i = 0; i < NumLevelIndices; i++) {
-			LevelIndices[i] = i;
+		for (int i = 0; i < NumGameIndices; i++) {
+			GameIndices[i] = i;
 		}
 	}
 }
 
 void MENU::LoadTitleNames()
 {
-	//タイルに表示するレベルタイトルのテキストを読み込む配列確保
-	Titles = new std::string[NumLevelIndices];
-	//タイルに表示するレベルタイトルのテキストをファイルから読み込む
+	//タイルに表示するゲームタイトルのテキストを読み込む配列確保
+	Titles = new std::string[NumGameIndices];
+	//タイルに表示するゲームタイトルのテキストをファイルから読み込む
 	std::ifstream ifs;
 	char buf[128];
-	for (int i = 0; i < NumLevelIndices; i++) {
+	for (int i = 0; i < NumGameIndices; i++) {
 		sprintf_s(buf, "../MAIN/assets/game%02d/title.txt", i);
 		ifs.open(buf);
 		std::getline(ifs, Titles[i]);
@@ -72,30 +72,29 @@ void MENU::destroy()
 	//現在のインデックスの並びをファイルに書き込み
 	const char* fileName = "../MAIN/assets/menu/indices.bin";
 	std::ofstream ofs(fileName, std::ios::binary);
-	ofs.write(LevelIndices, NumLevelIndices);
+	ofs.write(GameIndices, NumGameIndices);
 
 	delete[] Titles;
-	delete[] LevelIndices;
+	delete[] GameIndices;
 }
-
 
 void MENU::proc()
 {
 	//更新--------------------------------------------------
-	ChangeLevelIndices();
+	ChangeGameIndices();
 	//描画--------------------------------------------------
 	Draw();
-	//左クリックで選択したレベルに切り替え-----------------------
+	//左クリックで選択したゲームに切り替え-----------------------
 	if (isTrigger(MOUSE_LBUTTON)) {
 		if (TileIndexMouseOver >= 0) {
-			int index = LevelIndices[TileIndexMouseOver];
-			main()->setNextLevelId((LEVEL_FACTORY::LEVEL_ID)index);
+			int index = GameIndices[TileIndexMouseOver];
+			main()->setNextGameId((GAME_FACTORY::GAME_ID)index);
 		}
 	}
 }
 
-//マウス右ボタンによるドラッグアンドドロップでレベルの順序を並び変える
-void MENU::ChangeLevelIndices()
+//マウス右ボタンによるドラッグアンドドロップでゲームの順序を並び変える
+void MENU::ChangeGameIndices()
 {
 	//マウスが乗っているタイルのインデックス。
 	//ループごとに調べるため無効(-1)にしておく
@@ -114,7 +113,7 @@ void MENU::ChangeLevelIndices()
 	//マウスの位置から列番号と行番号に変換
 	int mouseCol = int((mouseX - OfstX) / TileW);
 	int mouseRow = int((mouseY - OfstY) / TileH);
-	//１次元配列LevelIndices[]のインデックスに変換
+	//１次元配列GameIndices[]のインデックスに変換
 	TileIndexMouseOver = Cols * mouseRow + mouseCol;
 
 	//「掴む！」右クリックされたタイルのインデックスを取っておく
@@ -125,22 +124,22 @@ void MENU::ChangeLevelIndices()
 	//「離す！」右ボタンを離した位置に、とっておいたインデックスを挿入
 	if (isRelease(MOUSE_RBUTTON) &&
 		TileIndexMouseHolding != -1) {
-		//掴んでいる「レベルのインデックス」を取っておく
-		int workIndex = LevelIndices[TileIndexMouseHolding];
+		//掴んでいる「ゲームのインデックス」を取っておく
+		int workIndex = GameIndices[TileIndexMouseHolding];
 		//後方のインデックスを前方にドラッグアンドドロップした時、後ろにずらすして挿入位置を空ける
 		if (TileIndexMouseOver < TileIndexMouseHolding)	{
 			for (int i = TileIndexMouseHolding; i > TileIndexMouseOver; i--) {
-				LevelIndices[i] = LevelIndices[i - 1];
+				GameIndices[i] = GameIndices[i - 1];
 			}
 		}
 		//前方のインデックスを後方にドラッグアンドドロップした時、前にずらすして挿入位置を空ける
 		else if (TileIndexMouseOver > TileIndexMouseHolding) {
 			for (int i = TileIndexMouseHolding; i < TileIndexMouseOver; i++) {
-				LevelIndices[i] = LevelIndices[i + 1];
+				GameIndices[i] = GameIndices[i + 1];
 			}
 		}
 		//ずらすことにより挿入場所ができたので入れる
-		LevelIndices[TileIndexMouseOver] = workIndex;
+		GameIndices[TileIndexMouseOver] = workIndex;
 		//無効にする
 		TileIndexMouseHolding = -1;
 	}
@@ -183,13 +182,13 @@ void MENU::Draw()
 			textSize(SizeText);
 			fill(0);
 			textMode(BOTTOM);
-			text(Titles[LevelIndices[index]].c_str(), px + 10, py + 10 + SizeText);
+			text(Titles[GameIndices[index]].c_str(), px + 10, py + 10 + SizeText);
 		}
 	}
 	//移動中のタイトル文字を描画
 	if (TileIndexMouseHolding >= 0) {
 		fill(128);
 		textMode(BCENTER);
-		text(Titles[LevelIndices[TileIndexMouseHolding]].c_str(), mouseX, mouseY);
+		text(Titles[GameIndices[TileIndexMouseHolding]].c_str(), mouseX, mouseY);
 	}
 }

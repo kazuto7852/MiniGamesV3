@@ -1,26 +1,26 @@
 #include "../../libOne/inc/libOne.h"
-#include "LEVEL.h"
+#include "GAME_BASE.h"
 #include "TRANSITION_EFFECT.h"
 #include "MAIN.h"
 
 MAIN::MAIN()
 {
 	window(1920, 1080, full);
-	//レベルファクトリ生成
-	LevelFactory = new LEVEL_FACTORY(this);
-	//スタート時のレベルをつくる
-	CurrentLevelId = NextLevelId = LEVEL_FACTORY::MENU_ID;
-	Level = LevelFactory->create(CurrentLevelId);
-	Level->create();
+	//ゲームファクトリ生成
+	GameFactory = new GAME_FACTORY(this);
+	//スタート時のゲームをつくる
+	CurrentGameId = NextGameId = GAME_FACTORY::MENU_ID;
+	GameBase = GameFactory->create(CurrentGameId);
+	GameBase->create();
 	//切り替え効果オブジェクト
 	Transition = new TRANSITION_EFFECT;
 }
 
 MAIN::~MAIN()
 {
-	delete LevelFactory;
-	Level->destroy();
-	delete Level;
+	delete GameFactory;
+	GameBase->destroy();
+	delete GameBase;
 	delete Transition;
 }
 
@@ -31,24 +31,24 @@ void MAIN::run()
 	while (notQuit) {
 
 		setDeltaTime();
-		Level->proc();
+		GameBase->proc();
 		Transition->proc();
 
-		//Level->proc()内でレベルを切り替えていない
-		if (CurrentLevelId == NextLevelId) {
+		//GameBase->proc()内でゲームを切り替えていない
+		if (CurrentGameId == NextGameId) {
 			continue;
 		}
-		//Level->proc()内でレベルを切り替えた時ここに来る
+		//GameBase->proc()内でゲームを切り替えた時ここに来る
 		Transition->outStart();
-		//画面切り替え効果終了後、Level切り替え
+		//画面切り替え効果終了後、GameBase切り替え
 		if (Transition->outEndFlag()) {
-			//現在のレベルを解放
-			Level->destroy();
-			delete Level;
-			//次のレベルを生成
-			CurrentLevelId = NextLevelId;
-			Level = LevelFactory->create(CurrentLevelId);
-			Level->create();
+			//現在のゲームを解放
+			GameBase->destroy();
+			delete GameBase;
+			//次のゲームを生成
+			CurrentGameId = NextGameId;
+			GameBase = GameFactory->create(CurrentGameId);
+			GameBase->create();
 			//切り替え効果スタート
 			Transition->inStart();
 		}
