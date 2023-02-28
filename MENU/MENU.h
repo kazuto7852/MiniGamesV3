@@ -16,11 +16,11 @@ private:
     void LoadIndices();
     void LoadTitleNames();
     //レベルインデックスの位置をマウスで変える
-    void ChangePosition();
-    char* Indices; 
-    int NumIndices;
-    int IndexMouseHolding;
-    int IndexMouseOver;
+    void ChangeLevelIndices();
+    char* LevelIndices; 
+    int NumLevelIndices;
+    int TileIndexMouseHolding;
+    int TileIndexMouseOver;
     //メニュー描画
     void Draw();
     int Rows, Cols;
