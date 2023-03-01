@@ -8,7 +8,7 @@ MAIN::MAIN()
 	window(1920, 1080, full);
 	//ゲームファクトリ生成
 	GameFactory = new GAME_FACTORY(this);
-	//スタート時のゲームをつくる
+	//スタート時のゲーム(メニュー)生成
 	CurrentGameId = NextGameId = GAME_FACTORY::MENU_ID;
 	GameBase = GameFactory->create(CurrentGameId);
 	GameBase->create();
@@ -29,18 +29,17 @@ void MAIN::run()
 	initDeltaTime();
 	//メインループ
 	while (notQuit) {
-
+		//メインプロシージャー
 		setDeltaTime();
 		GameBase->proc();
 		Transition->proc();
-
 		//GameBase->proc()内でゲームを切り替えていない
 		if (CurrentGameId == NextGameId) {
 			continue;
 		}
 		//GameBase->proc()内でゲームを切り替えた時ここに来る
 		Transition->outStart();
-		//画面切り替え効果終了後、GameBase切り替え
+		//画面切り替え効果終了後、次のゲームに切り替え
 		if (Transition->outEndFlag()) {
 			//現在のゲームを解放
 			GameBase->destroy();
@@ -55,6 +54,7 @@ void MAIN::run()
 	}
 }
 
+//MAINオブジェクト開始
 void gmain()
 {
 	MAIN main;
