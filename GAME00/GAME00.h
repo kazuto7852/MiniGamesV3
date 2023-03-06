@@ -17,9 +17,11 @@ private:
     void Init();
     void Play();
     void Clear();
+    bool ClearFlag = false;
     //‰~
-    float CircleX = 0, CircleY = 0, CircleRadius = 0;
-    float CircleVy = 0;
+    float CircleRadius = 0;
+    float CircleX  = 0, CircleY  = 0;
+    float CircleVx = 0, CircleVy = 0;
     //”š”­
     int ExplosionImg = 0;
     int ExplosionSnd = 0;

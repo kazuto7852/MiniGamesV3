@@ -55,18 +55,30 @@ void GAME00::Init()
 	CircleX = random() % 1000 + 500.0f;
 	CircleY = -CircleRadius;
 	CircleVy = 800;
+
+	ClearFlag = false;
 }
 
 void GAME00::Play()
 {
 	//更新--------------------------------------------------
 	CircleY += CircleVy * delta;
+	//下まで行ったので上に戻る
 	if (CircleY > height + CircleRadius) {
 		CircleX = random() % 1000 + 500.0f;
 		CircleY = -CircleRadius;
 	}
+	//クリックしたとき、マウスポインタが円の中に入ってたらクリア
+	if (isTrigger(MOUSE_LBUTTON)) {
+		float dx = CircleX - mouseX;
+		float dy = CircleY - mouseY;
+		if (dx * dx + dy * dy < CircleRadius * CircleRadius) {
+			playSound(ExplosionSnd);
+			ClearFlag = true;
+		}
+	}
 	//描画--------------------------------------------------
-	clear(0, 60, 0);
+	clear(0, 0, 255);
 	//円
 	fill(255);
 	circle(CircleX, CircleY, CircleRadius * 2);
@@ -75,13 +87,8 @@ void GAME00::Play()
 	print("Play");
 	print("　円をクリックするとGame Clear");
 	//シーン切り替え-----------------------------------------
-	if (isTrigger(MOUSE_LBUTTON)) {
-		float dx = CircleX - mouseX;
-		float dy = CircleY - mouseY;
-		if (dx * dx + dy * dy < CircleRadius * CircleRadius) {
-			playSound(ExplosionSnd);
-			State = CLEAR;
-		}
+	if (ClearFlag) {
+		State = CLEAR;
 	}
 }
 
