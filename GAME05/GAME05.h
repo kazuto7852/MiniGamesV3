@@ -1,15 +1,17 @@
 #pragma once
 #include "../MAIN/GAME_BASE.h"
-class GAME05 :
-    public GAME_BASE
+namespace GAME05
 {
-public:
-    GAME05(class MAIN* main) :GAME_BASE(main) {};
-    ~GAME05() {};
-    int create();
-    void proc();
-    void destroy();
-private:
-    float Px = 0, Py = 0, Radius = 0;
-};
-
+    class GAME :
+        public GAME_BASE
+    {
+    public:
+        GAME(class MAIN* main) :GAME_BASE(main) {};
+        ~GAME() {};
+        int create();
+        void proc();
+        void destroy();
+    private:
+        float Px = 0, Py = 0, Radius = 0;
+    };
+}

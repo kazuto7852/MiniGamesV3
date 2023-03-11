@@ -14,12 +14,12 @@ GAME_FACTORY::~GAME_FACTORY(){Main = nullptr;}
 
 GAME_BASE* GAME_FACTORY::create(GAME_ID id)
 {
-	if (id == GAME00_ID)return new GAME00(Main);
-	if (id == GAME01_ID)return new GAME01(Main);
-	if (id == GAME02_ID)return new GAME02(Main);
-	if (id == GAME03_ID)return new GAME03(Main);
-	if (id == GAME04_ID)return new GAME04(Main);
-	if (id == GAME05_ID)return new GAME05(Main);
+	if (id == GAME00_ID)return new GAME00::GAME(Main);
+	if (id == GAME01_ID)return new GAME01::GAME(Main);
+	if (id == GAME02_ID)return new GAME02::GAME(Main);
+	if (id == GAME03_ID)return new GAME03::GAME(Main);
+	if (id == GAME04_ID)return new GAME04::GAME(Main);
+	if (id == GAME05_ID)return new GAME05::GAME(Main);
 	if (id == MENU_ID)return new MENU(Main);
 	return nullptr;
 }
