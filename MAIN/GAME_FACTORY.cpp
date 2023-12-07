@@ -13,6 +13,7 @@
 #include "../GAME12/GAME12.h"
 #include "../GAME13/GAME13.h"
 #include "../GAME14/GAME14.h"
+#include "../GAME15/GAME15.h"
 #include "../MENU/MENU.h"
 #include "MAIN.h"
 #include "GAME_FACTORY.h"
@@ -38,6 +39,7 @@ GAME_BASE* GAME_FACTORY::create(GAME_ID id)
 	if (id == GAME12_ID)return new GAME12::GAME(Main);
 	if (id == GAME13_ID)return new GAME13::GAME(Main);
 	if (id == GAME14_ID)return new GAME14::GAME(Main);
+	if (id == GAME15_ID)return new GAME15::GAME(Main);
 	if (id == MENU_ID)return new MENU(Main);
 	return nullptr;
 }

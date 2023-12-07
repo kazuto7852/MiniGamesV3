@@ -37,7 +37,7 @@ namespace GAME09
 		fill(0);
 		textSize(100);
 		text("Enterでメニューに戻る", 0, height);
-		print(5);
+		print(9);
 		//メニューに戻る------------------------------------------
 		if (isTrigger(KEY_ENTER)) {
 			main()->backToMenu();

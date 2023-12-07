@@ -18,6 +18,7 @@ public:
 		GAME12_ID,
 		GAME13_ID,
 		GAME14_ID,
+		GAME15_ID,
 		MENU_ID=100,
 	};
 	GAME_FACTORY(class MAIN* main);
