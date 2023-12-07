@@ -10,11 +10,11 @@ int MENU::create()
 {
 	//各変数初期化
 	//タイルの数
-	Rows = 2;//行
-	Cols = 3;//列
+	Rows = 3;//行
+	Cols = 5;//列
 	//タイルの大きさ
-	TileW = 160 * 3;
-	TileH = 90 * 3;
+	TileW = 160*2;
+	TileH = 90*2;
 	//左上の原点をずらす値
 	OfstX = (width - TileW * Cols) / 2;
 	OfstY = (height - TileH * Rows) / 2;

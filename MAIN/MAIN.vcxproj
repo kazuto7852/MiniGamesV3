@@ -165,6 +165,33 @@
     <ProjectReference Include="..\GAME05\GAME05.vcxproj">
       <Project>{afcdb6b3-03e5-4ab1-934a-cf695924fe99}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\GAME06\GAME06.vcxproj">
+      <Project>{d740b213-3d54-4336-be98-ff33f2523401}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME07\GAME07.vcxproj">
+      <Project>{9a103036-b7ed-414b-a271-0810faf719d2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME08\GAME08.vcxproj">
+      <Project>{b715fab8-a2f3-4ce5-b63b-6c7b4d82ba75}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME09\GAME09.vcxproj">
+      <Project>{78909f49-4338-4480-be39-2766145e3dfa}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME10\GAME10.vcxproj">
+      <Project>{be21bec1-7157-4806-b976-82ba1e68eb32}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME11\GAME11.vcxproj">
+      <Project>{9d808365-dec4-4d1b-94b1-88632f33b728}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME12\GAME12.vcxproj">
+      <Project>{05fc2182-0bd4-4562-9072-8e70154cf2d7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME13\GAME13.vcxproj">
+      <Project>{29ee0cfd-2c26-42a4-b951-a81cd23adb79}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME14\GAME14.vcxproj">
+      <Project>{5978d4c6-5ba8-4cef-b24b-d0c473770f43}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\MENU\MENU.vcxproj">
       <Project>{4927b0ca-73e2-4f6f-a0fe-cd60cffcf971}</Project>
     </ProjectReference>

@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4927b0ca-73e2-4f6f-a0fe-cd60cffcf971}</ProjectGuid>
-    <RootNamespace>MENU</RootNamespace>
+    <ProjectGuid>{05fc2182-0bd4-4562-9072-8e70154cf2d7}</ProjectGuid>
+    <RootNamespace>GAME12</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>MENU</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -134,10 +133,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="MENU.h" />
+    <Text Include="..\MAIN\assets\game12\title.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MENU.cpp" />
+    <ClCompile Include="GAME12.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GAME12.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
