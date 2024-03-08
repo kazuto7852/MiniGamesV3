@@ -219,11 +219,17 @@ namespace GAME10
 		fill(255);
 		image(TCntImage, TCx + 55, TCy - 10);//経過ターン用の画像
 		text(ElapsedTurns + 1, 1680, 1000);
+		print(Box[0]);
+		print(Box[1]);
+		print(Box[2]);
+		print(Box[3]);
+		print(ClickBox);
+		print(PreP);
+		print(ChangeFlag);
+		print(NotInFlag);
 		if (SetTime != 0) {
 			timeLaps();//時間経過
 		}
-		print(ChangeFlag);
-		print(ClickBox);
 		if (isTrigger(KEY_J) && FilldFlag == true || SetTime != 0 && TempTime <= Flame) {//ターン経過
 			//タイムオーバーの場合は、ターン経過のみ
 			if (SetTime != 0 && TempTime <= Flame) {
@@ -326,6 +332,23 @@ namespace GAME10
 			}
 		}
 		
+		//ジャッチ用の駒表示
+		for (int i = 0; i < Col; i++) {
+			for (int j = 0; j < Row; j++) {
+				switch (JudgeP[Row * i + j]) {
+				case AnsPerfect:
+					image(JudgePawns.AnsPerfect, Jpx + Jmmx * ((Row * i + j) % 2) + Jbmx * i, Jpy + Jmy * (j / 2));
+					break;
+				case AnsImPerfect:
+					image(JudgePawns.AnsImPerfect, Jpx + Jmmx * ((Row * i + j) % 2) + Jbmx * i, Jpy + Jmy * (j / 2));
+					break;
+				case AnsSpace:
+					image(JudgePawns.AnsSpace, Jpx + Jmmx * ((Row * i + j) % 2) + Jbmx * i, Jpy + Jmy * (j / 2));
+					break;
+				}
+			}
+		}
+
 		//ホールド中の駒
 		if (ClickBox != PawnsKind) {//ホールド辞めたらここで描画が終わる
 			switch (ClickBox) {
@@ -347,23 +370,6 @@ namespace GAME10
 			case White:
 				image(Pawns.WhiteP, MouseX, MouseY, 0, BigSize);
 				break;
-			}
-		}
-
-		//ジャッチ用の駒表示
-		for (int i = 0; i < Col; i++) {
-			for (int j = 0; j < Row; j++) {
-				switch (JudgeP[Row * i + j]) {
-				case AnsPerfect:
-					image(JudgePawns.AnsPerfect, Jpx + Jmmx * ((Row * i + j) % 2) + Jbmx * i, Jpy + Jmy * (j / 2));
-					break;
-				case AnsImPerfect:
-					image(JudgePawns.AnsImPerfect, Jpx + Jmmx * ((Row * i + j) % 2) + Jbmx * i, Jpy + Jmy * (j / 2));
-					break;
-				case AnsSpace:
-					image(JudgePawns.AnsSpace, Jpx + Jmmx * ((Row * i + j) % 2) + Jbmx * i, Jpy + Jmy * (j / 2));
-					break;
-				}
 			}
 		}
 	}
@@ -413,7 +419,7 @@ namespace GAME10
 				}
 
 				//設置場所から動かしたとき、入れ替える場合はこの処理
-				if (isRelease(MOUSE_LBUTTON) && Colli[Row * i + j].Dist < Radius / 2 && ChangeFlag == true && NotInFlag  == false) {
+				if (isRelease(MOUSE_LBUTTON) && Colli[Row * i + j].Dist < Radius / 2 && ChangeFlag == true && NotInFlag  == false && Row * i + j != PreP) {
 					playSound(SetSound);
 					TempP = Box[Row * i + j];
 					Box[Row * i + j] = ClickBox;
@@ -424,6 +430,11 @@ namespace GAME10
 				}
 				//設置場所とは別の場所に入れようとしたら、元の場所に戻る
 				else if (isRelease(MOUSE_LBUTTON) && NotInFlag == true && ChangeFlag == true) {
+					Box[PreP] = ClickBox;
+					ChangeFlag = false;
+				}
+				//もし同じ場所に入れ込んだ場合、元の位置に戻る
+				else if (isRelease(MOUSE_LBUTTON) && NotInFlag == false && Colli[Row * i + j].Dist < Radius / 2 && Row * i + j == PreP && ChangeFlag == true) {
 					Box[PreP] = ClickBox;
 					ChangeFlag = false;
 				}
