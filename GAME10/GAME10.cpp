@@ -350,30 +350,6 @@ namespace GAME10
 			}
 		}
 
-		//答えの表示
-		for (int i = 0; i < AnsCnt; i++) {
-			switch (Ans[i]) {
-			case Red:
-				image(Pawns.RedP, Apx,Apy + Amy*i);
-				break;
-			case Blue:
-				image(Pawns.BlueP, Apx,Apy + Amy*i);
-				break;
-			case Green:
-				image(Pawns.GreenP, Apx,Apy + Amy*i);
-				break;
-			case Yellow:
-				image(Pawns.YellowP, Apx,Apy + Amy*i);
-				break;
-			case Pink:
-				image(Pawns.PinkP, Apx,Apy + Amy*i);
-				break;
-			case White:
-				image(Pawns.WhiteP, Apx,Apy + Amy*i);
-				break;
-			}
-		}
-
 		//ジャッチ用の駒表示
 		for (int i = 0; i < Col; i++) {
 			for (int j = 0; j < Row; j++) {

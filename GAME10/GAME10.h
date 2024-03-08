@@ -122,11 +122,6 @@ namespace GAME10
             int Kpx = 525;
             int Kpy = 970;
             int Kmx = 175;
-        //答えの配置
-            int Apx = 1700;
-            int Apy = 250;
-            int Amx = 175;
-            int Amy = 175;
         //ジャッチメント用の配置(オレンジと白のやつ)
             int Jpx = 130;
             int Jpy = 100;
